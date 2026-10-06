@@ -31,6 +31,9 @@
    このため、暗いセクション側の文字色は個別に明色へ戻している（★反転 コメント参照）。
    ---------------------------------------------------------------- */
 :root {
+  --credit-btn-ink: #FFFFFF;
+  --credit-btn-hover: #5D590E;
+  --credit-btn: #7C7713;
   --deep:       #FFFFFF;   /* ★主要地：白。body / STYLE / MENU / RESERVE */
   --deep-rgb:   255, 255, 255;
   --darker:     #241C17;   /* ★ダークブラウン。ACCESS とフッターの帯＝指定のアクセント */
@@ -778,9 +781,11 @@ html.js [data-reveal].is-shown {
 }
 
 /* ============ 制作クレジット帯（スズメデザイン） ============ */
+/* 制作クレジット帯：フッターと地色が近く埋もれていたため反転させた。
+   フッターの補色は同じ明度だとコントラスト1.2前後で目立たないので採らない。 */
 .studio-credit {
-  background: color-mix(in srgb, var(--darker), black 12%);
-  border-top: var(--gold-hair);
+  background: var(--menu-card);
+  border-top: 2px solid var(--gold);
 }
 .studio-credit__inner {
   max-width: 1280px;
@@ -797,7 +802,7 @@ html.js [data-reveal].is-shown {
   font-family: var(--font-en);
   font-size: 11px;
   letter-spacing: 0.15em;
-  color: rgba(var(--gold-rgb), 0.8);
+  color: var(--gold);
 }
 .studio-credit__name {
   font-family: var(--font-jp);
@@ -815,13 +820,16 @@ html.js [data-reveal].is-shown {
   font-size: 11px;
   letter-spacing: 0.15em;
   text-decoration: none;
-  color: var(--light);
-  border: var(--gold-border);
+  color: var(--credit-btn-ink);
+  border: 1px solid var(--credit-btn);
   transition: background .3s, color .3s;
+  background: var(--credit-btn);
 }
 .studio-credit__btn::after { content: "\2197"; font-size: 10px; }
 .studio-credit__btn:hover,
-.studio-credit__btn:focus-visible { background: var(--gold); color: var(--darker); }
+.studio-credit__btn:focus-visible { background: var(--credit-btn-hover); color: var(--credit-btn-ink);
+  border-color: var(--credit-btn-hover);
+}
 @media (max-width: 640px) {
   .studio-credit__inner { flex-direction: column; align-items: flex-start; }
   .studio-credit__btn { width: 100%; justify-content: center; }
@@ -875,11 +883,16 @@ html.js [data-reveal].is-shown {
    元テンプレのまま var(--light) / var(--gold) を文字に使うと
    それぞれ 1.08 / 2.19 で読めない。濃色地用に明色側へ戻す。
    ============================================================ */
-.studio-credit__lead { color: #D8C3A8; }            /* 帯の上で 10.15 */
-.studio-credit__name { color: var(--deep); }        /* --deep＝白。帯の上で 17.35 */
-.studio-credit__btn  { color: var(--deep); }        /* 同上 */
+/* 帯を明色地（--menu-card）に反転したので、文字側も暗色に入れ替える */
+.studio-credit__lead { color: var(--gold); }        /* 帯の上で 7.49 */
+.studio-credit__name { color: var(--light); }       /* --light＝#141210。帯の上で 17.64 */
+.studio-credit__btn  { color: var(--credit-btn-ink);
+  background: var(--credit-btn);
+  border: 1px solid var(--credit-btn);
+}   /* ゴールド地に明色文字で 7.49 */
 .studio-credit__btn:hover,
 .studio-credit__btn:focus-visible {
-  background: var(--gold);                          /* 濃いブラウン */
-  color: var(--deep);                               /* 白文字で 7.94。元の --darker は 2.11 で読めない */
+  background: var(--credit-btn-hover);                         /* 反転してさらに濃く */
+  color: var(--credit-btn-ink);                          /* 明色文字で 17.64 */
+  border-color: var(--credit-btn-hover);
 }
