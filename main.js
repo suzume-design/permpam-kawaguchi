@@ -72,7 +72,7 @@
     });
 
     // PC 幅に戻ったら状態をリセット
-    var mq = window.matchMedia('(min-width: 768px)');
+    var mq = window.matchMedia('(min-width: 860px)')   /* CSS のナビ切替幅と必ず揃える */;
     var onChange = function (e) { if (e.matches) setOpen(false); };
     if (mq.addEventListener) mq.addEventListener('change', onChange);
     else if (mq.addListener) mq.addListener(onChange);

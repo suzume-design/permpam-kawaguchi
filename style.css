@@ -184,7 +184,10 @@ html.js [data-reveal].is-shown {
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* mob 展開時のドロワー */
-@media (max-width: 767px) {
+/* ★ナビの切替幅だけ 768 → 860（2026-10-06）。
+   768px では横並びのナビが 37px はみ出していた（実測）。
+   他の min-width: 768px（組版・レイアウト）は変えない。 */
+@media (max-width: 859px) {
   .gnav {
     position: fixed;
     top: var(--header-h);
@@ -218,7 +221,7 @@ html.js [data-reveal].is-shown {
   .btn-reserve { margin-top: 24px; text-align: center; padding: 14px 24px; }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 860px) {
   .nav-toggle { display: none; }
   .nav-list { display: flex; }        /* PC: navUl.display = 'flex' */
   .btn-reserve { margin-left: 40px; }
@@ -895,4 +898,14 @@ html.js [data-reveal].is-shown {
   background: var(--credit-btn-hover);                         /* 反転してさらに濃く */
   color: var(--credit-btn-ink);                          /* 明色文字で 17.64 */
   border-color: var(--credit-btn-hover);
+}
+
+
+/* ★狭い画面での横あふれ対策（2026-10-06）
+   body だけ overflow-x: hidden にすると html 側は visible のままなので、
+   iOS Safari ではページが横スクロールでき、右側に地色の帯（余白）が出る。
+   html にも掛ける必要があるが、hidden はスクロールコンテナを作るため
+   position: sticky のヘッダーが効かなくなる。clip は作らないので安全。 */
+@supports (overflow: clip) {
+  html, body { overflow-x: clip; }
 }
